@@ -1,0 +1,28 @@
+
+
+
+.fields{
+    display: flex;
+width: 100%;
+margin: 10px 0 0;
+}
+
+.fieldsInput{
+    width: 100%;
+font-family: "Roboto", sans-serif;
+font-size: 14px;
+font-weight: 700;
+border: 1px solid #e0e0e0;
+    padding: 0 5px;
+    outline: none;
+    background: #232323;
+    color: white;
+
+
+}
+
+.fieldsInput::-webkit-outer-spin-button,
+.fieldsInput::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}

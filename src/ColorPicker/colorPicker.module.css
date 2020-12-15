@@ -1,0 +1,19 @@
+.colorPicker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    background-color: #ffffff;
+    /* box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px; */
+    min-width: 100%;
+    background: inherit;
+    color: inherit;
+}
+
+.colorPickerBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
