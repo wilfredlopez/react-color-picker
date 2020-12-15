@@ -18,11 +18,13 @@ export interface ColorPickerProps {
      */
     height?: number
     /**
-     * Color in the `ColorObject`.
+     * Color in the `ColorConverter` or color string.
+     * @type { ColorConverter } ColorConverter `https://www.npmjs.com/package/@wilfredlopez/color-converter`
      */
-    color?: string
+    color?: string | ColorConverter
     /**
-     * The function that accepts the updated `ColorObject` as a single argument.
+     * The function that accepts the updated `color` and a `colorConverter` as arguments.
+     * @ColorConverter `https://www.npmjs.com/package/@wilfredlopez/color-converter`
      */
     onChange?: (color: string, convertedColor: ColorConverter) => void
 }
@@ -33,7 +35,10 @@ export interface ColorPickerBodyProps {
 
 
 
-function parseColor(colorToParse?: string) {
+function parseColor(colorToParse?: string | ColorConverter) {
+    if (colorToParse instanceof ColorConverter) {
+        return colorToParse.hexString()
+    }
     const parsed = parse(colorToParse || '#3d7c7d')
     if (!parsed) return '#3d7c7d'
     const com = new ColorConverter()
