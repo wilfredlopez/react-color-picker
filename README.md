@@ -7,7 +7,7 @@ React Color Picker Component
 ```tsx
 import { render } from 'react-dom'
 import { useState } from 'react'
-import { ReactColorPicker } from 'react-color-picker'
+import { ReactColorPicker } from 'react-color-palette-picker'
 //peer-dependency
 import { ColorConverter } from '@wilfredlopez/color-converter'
 
