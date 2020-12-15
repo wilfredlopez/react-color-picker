@@ -1,6 +1,7 @@
 import { Saturation } from "./Saturation"
 import { HueBar } from "./HueBar"
 import { Fields } from "./Fields"
+import React from 'react'
 // import { ColorObject } from '../picker-utils/index'
 import { ColorConverter, parse, convert } from '@wilfredlopez/color-converter'
 import classes from './colorPicker.module.css'

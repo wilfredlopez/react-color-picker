@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import React from 'react'
 import { ColorConverter } from '@wilfredlopez/color-converter'
 import ReactColorPicker from '../ColorPicker/ReactColorPicker'
 

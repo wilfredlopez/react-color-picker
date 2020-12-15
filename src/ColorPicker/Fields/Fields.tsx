@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import React from 'react'
 // import { ColorModels, isValidHex, toColorObject, isValidRgb, isValidHsb } from "../picker-utils"
 import { canvasUtils, ColorConverter, ColorModels, HsbObject } from "@wilfredlopez/color-converter"
 import { ColorModelsDropDown } from "../ColorModelsDropDown"

@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react'
 import { ReactColorPicker } from './ColorPicker'
 import { ColorConverter } from '@wilfredlopez/color-converter'

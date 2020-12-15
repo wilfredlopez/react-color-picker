@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript2'
 import postcss from 'rollup-plugin-postcss'
 import packageJson from './package.json'
 import autoprefixer from 'autoprefixer'
+const name = 'ReactColorPicker'
 
 export default {
   input: './src/index.ts',
@@ -19,16 +20,32 @@ export default {
       format: 'esm',
       sourcemap: true,
     },
+    {
+      file: './build/index.umd.js',
+      format: 'umd',
+      sourcemap: true,
+      name: name,
+      globals: {
+        react: 'React',
+        '@wilfredlopez/color-converter': 'ColorConverter',
+      },
+    },
   ],
-  external: [...Object.keys(packageJson.dependencies || {})],
+  external: [
+    // ...Object.keys(packageJson.dependencies),
+    '@wilfredlopez/color-converter',
+    'react',
+    'react-dom',
+  ],
   plugins: [
-    peerDepsExternal(),
     resolve(),
+    peerDepsExternal(),
     commonjs(),
     typescript({
       tsconfigOverride: {
         declaration: true,
         outFile: 'dist/index.js',
+        jsx: 'react',
         exclude: [
           'src/App.tsx',
           'src/Render.tsx',
@@ -38,6 +55,7 @@ export default {
         ],
       },
     }),
+
     postcss({
       plugins: [autoprefixer()],
       sourceMap: true,

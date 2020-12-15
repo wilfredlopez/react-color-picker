@@ -1,4 +1,5 @@
 import { useRef, useMemo, useEffect, useCallback } from "react"
+import React from 'react'
 // import { getCoordinatesByColor, moveAt, getColorByCoordinates, ColorObject } from "../picker-utils"
 import { canvasUtils, ColorConverter } from '@wilfredlopez/color-converter'
 import classes from './saturation.module.css'
