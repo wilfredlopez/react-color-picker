@@ -11,6 +11,9 @@ import { ReactColorPicker } from 'react-color-palette-picker'
 //peer-dependency
 import { ColorConverter } from '@wilfredlopez/color-converter'
 
+//Styles
+import 'react-color-palette-picker/build/index.css'
+
 function App() {
   const [color, setColor] = useState('red')
   const [allColors, setAllColors] = useState<ColorConverter[]>([])
