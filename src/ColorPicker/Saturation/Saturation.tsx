@@ -2,6 +2,7 @@ import { useRef, useMemo, useEffect, useCallback } from "react"
 // import { getCoordinatesByColor, moveAt, getColorByCoordinates, ColorObject } from "../picker-utils"
 import { canvasUtils, ColorConverter } from '@wilfredlopez/color-converter'
 import classes from './saturation.module.css'
+import selectClass from '../../utils/selectClass'
 const { getCoordinatesByColor, moveAt, getColorByCoordinates, } = canvasUtils
 
 export interface SaturationProps {
@@ -9,10 +10,13 @@ export interface SaturationProps {
     height: number
     color: ColorConverter
     setColor: (color: ColorConverter) => void
+    containerClass: string
+    saturationCursorClass: string
+    canvasClass: string
 }
 
 
-export const Saturation = ({ width, height, color, setColor }: SaturationProps): JSX.Element => {
+export const Saturation = ({ canvasClass, saturationCursorClass, containerClass, width, height, color, setColor }: SaturationProps): JSX.Element => {
     const paletteRef = useRef<HTMLCanvasElement>(null)
 
     const cursorPosition = useMemo(() => {
@@ -131,11 +135,21 @@ export const Saturation = ({ width, height, color, setColor }: SaturationProps):
         , [moveCursor])
 
     return (
-        <div className={classes.saturation}>
-            <canvas ref={paletteRef} width={width} height={height}
+        <div className={selectClass([{
+            [classes.saturation]: !containerClass,
+            [containerClass || ""]: !!containerClass
+        }])}>
+            <canvas className={canvasClass} ref={paletteRef} width={width} height={height}
                 onTouchStart={onTouchStart}
                 onMouseDown={onMouseDown} />
-            <div className={classes.saturationCursor} style={{ left: cursorPosition.x, top: cursorPosition.y, backgroundColor: color.hexString() }} />
+            <div className={
+                selectClass([{
+                    [classes.saturationCursor]: !saturationCursorClass,
+                    [saturationCursorClass || ""]: !!saturationCursorClass,
+                }])
+
+            }
+                style={{ left: cursorPosition.x, top: cursorPosition.y, backgroundColor: color.hexString() }} />
         </div>
     )
 }

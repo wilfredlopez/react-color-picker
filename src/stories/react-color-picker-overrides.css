@@ -1,0 +1,15 @@
+.bgDark{
+    background-color: #777676;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.barContainer{
+    height: 50px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}

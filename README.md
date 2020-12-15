@@ -11,7 +11,7 @@ import { ReactColorPicker } from 'react-color-palette-picker'
 //peer-dependency
 import { ColorConverter } from '@wilfredlopez/color-converter'
 
-//Styles
+//Default Styles or use your own by providing prop `pickerClasses`
 import 'react-color-palette-picker/build/index.css'
 
 function App() {
@@ -56,7 +56,7 @@ render(<App />, document.getElementById('root'))
 ### PROPS
 
 ```ts
-export interface ColorPickerProps {
+interface ColorPickerProps {
   /**
    * The width of the color picker.
    */
@@ -75,5 +75,31 @@ export interface ColorPickerProps {
    * @ColorConverter `https://www.npmjs.com/package/@wilfredlopez/color-converter`
    */
   onChange?: (color: string, convertedColor: ColorConverter) => void
+  /**
+   * classNames to override the defaults
+   */
+  pickerClasses?: ColorPickerClasses
+  /**
+   * Show or hide the hex and rgb inputs.
+   */
+  hideControls?: boolean
+}
+
+interface ColorPickerClasses {
+  container?: string
+  controlsContainer?: string
+  saturation?: {
+    container?: string
+    saturationCursor?: string
+    canvas?: string
+  }
+  hueBar?: {
+    container?: string
+    cursorClass?: string
+  }
+  fields?: {
+    container?: string
+    inputs?: string
+  }
 }
 ```

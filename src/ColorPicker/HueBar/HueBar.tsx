@@ -3,18 +3,21 @@ import { useRef, useMemo, useCallback } from "react"
 // import { ColorObject } from '../picker-utils/index'
 import { canvasUtils, ColorConverter } from "@wilfredlopez/color-converter"
 import classes from './huebar.module.css'
+import selectClass from '../../utils/selectClass'
 
 const { getCoordinatesByHue, moveAt, getHueByCoordinates, changeHue } = canvasUtils
 export interface HueBarProps {
     width: number
     color: ColorConverter
     setColor: (color: ColorConverter) => void
+    containerClass?: string
+    cursorClass?: string
 }
 
 const { toColorObject } = canvasUtils
 
 
-export const HueBar = ({ width, color, setColor }: HueBarProps): JSX.Element => {
+export const HueBar = ({ width, color, setColor, containerClass, cursorClass }: HueBarProps): JSX.Element => {
     const hueBarRef = useRef<HTMLDivElement>(null)
     const cursorPosition = useMemo(() => {
         const x = getCoordinatesByHue(color.hsbObject.hue, width)
@@ -93,12 +96,28 @@ export const HueBar = ({ width, color, setColor }: HueBarProps): JSX.Element => 
 
 
     return (
-        <div className={classes.hueBar} ref={hueBarRef} style={{
-            width: width
+        <div className={
+            selectClass([
+                {
+                    [classes.hueBar]: !containerClass,
+                    [containerClass || ""]: true
+                }
+            ])
+        } ref={hueBarRef} style={{
+            width: width,
+            position: 'relative',
+            backgroundImage: 'linear-gradient( to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0) )'
         }} onMouseDown={onMouseDown}
             onTouchStart={onTouchStart}
         >
-            <div className={classes.hueBarCursor} style={{ left: cursorPosition, backgroundColor: `hsl(${color.hslObject.hue}, 100%, 50%)` }} />
+            <div className={
+                selectClass([
+                    {
+                        [classes.hueBarCursor]: !cursorClass,
+                        [cursorClass || ""]: true
+                    }
+                ])
+            } style={{ left: cursorPosition, backgroundColor: `hsl(${color.hslObject.hue}, 100%, 50%)` }} />
         </div>
     )
 }

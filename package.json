@@ -18,7 +18,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "build": "rimraf build && rollup -c",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "predeploy": "rimraf storybook-static && npm run build-storybook",
+    "deploy": "gh-pages -d storybook-static"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +68,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "babel-loader": "^8.2.2",
+    "gh-pages": "^3.1.0",
     "postcss": "^8.2.1",
     "react-scripts": "4.0.1",
     "rimraf": "^3.0.2",
@@ -75,5 +78,14 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wilfredlopez/react-color-picker.git"
+  },
+  "author": {
+    "name": "Wilfred Lopez",
+    "email": "cubamc@gmail.com",
+    "url": "https://wilfredlopez.net"
   }
 }

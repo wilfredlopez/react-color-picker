@@ -22,5 +22,6 @@ module.exports = {
         configureJSX: true,
       },
     },
+    '@storybook/addon-essentials',
   ],
 }

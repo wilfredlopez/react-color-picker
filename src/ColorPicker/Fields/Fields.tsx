@@ -1,23 +1,34 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from 'react'
 // import { ColorModels, isValidHex, toColorObject, isValidRgb, isValidHsb } from "../picker-utils"
 import { canvasUtils, ColorConverter, ColorModels, HsbObject } from "@wilfredlopez/color-converter"
 import { ColorModelsDropDown } from "../ColorModelsDropDown"
 import HexInput from './HexInput'
 import RBGOrHsbInput from './RBGOrHsbInput'
 import classes from './fields.module.css'
+import selectClass from '../../utils/selectClass'
 
 const { isValidHex, toColorObject, isValidRgb, isValidHsb } = canvasUtils
 
 export interface FieldsProps {
     color: ColorConverter
     setColor: (color: ColorConverter) => void
+    containerClass?: string
+    inputClass?: string
 }
 
 
-export const Fields = ({ color, setColor }: FieldsProps): JSX.Element => {
+export const Fields = ({ color, setColor, containerClass, inputClass }: FieldsProps): JSX.Element => {
     const [value, setValue] = useState(color.hexString())
     const [inputted, setInputted] = useState(false)
     const [colorModel, setColorModel] = useState<ColorModels>("hex")
+
+
+    const currentInputClass = useMemo(() => selectClass([
+        {
+            [classes.fieldsInput]: !inputClass,
+            [inputClass || ""]: true
+        }
+    ]), [inputClass])
 
     useEffect(() => {
         if (!inputted) {
@@ -75,12 +86,19 @@ export const Fields = ({ color, setColor }: FieldsProps): JSX.Element => {
     }, [color, colorModel, setColor])
 
     return (
-        <div className={classes.fields}>
+        <div className={selectClass([
+            {
+                [classes.fields]: !containerClass,
+                [containerClass || ""]: true
+            }
+        ])}>
             <ColorModelsDropDown model={colorModel} setModel={setColorModel} />
             {colorModel === "hex" ? (
-                <HexInput value={value} color={color} onBlur={onBlur} onChange={onChange} onFocus={onFocus} />
+                <HexInput className={
+                    currentInputClass
+                } value={value} color={color} onBlur={onBlur} onChange={onChange} onFocus={onFocus} />
             ) : (
-                    <RBGOrHsbInput colorModel={colorModel} color={color} onChange={onChange} />
+                    <RBGOrHsbInput className={currentInputClass} colorModel={colorModel} color={color} onChange={onChange} />
 
                 )}
         </div>

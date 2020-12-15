@@ -5,6 +5,7 @@ import { Fields } from "./Fields"
 import { ColorConverter, parse, convert } from '@wilfredlopez/color-converter'
 import classes from './colorPicker.module.css'
 import { useState, useMemo } from 'react'
+import selectClass from '../utils/selectClass'
 
 // const { isValidHex, } = canvasUtils
 
@@ -27,11 +28,37 @@ export interface ColorPickerProps {
      * @ColorConverter `https://www.npmjs.com/package/@wilfredlopez/color-converter`
      */
     onChange?: (color: string, convertedColor: ColorConverter) => void
+    /**
+     * classNames to override the defaults
+     */
+    pickerClasses?: ColorPickerClasses
+    /**
+     * Show or hide the hex and rgb inputs.
+     */
+    hideControls?: boolean
 }
 
-export interface ColorPickerBodyProps {
-    width: number
+
+export interface ColorPickerClasses {
+    container?: string
+    controlsContainer?: string
+    saturation?: {
+        container?: string
+        saturationCursor?: string
+        canvas?: string
+    }
+    hueBar?: {
+        container?: string,
+        cursorClass?: string
+    },
+    fields?: {
+        container?: string,
+        inputs?: string
+    }
 }
+
+
+
 
 
 
@@ -55,8 +82,7 @@ function parseColor(colorToParse?: string | ColorConverter) {
 }
 
 
-const ReactColorPicker = ({ width = 400, height = width, color, onChange }: ColorPickerProps): JSX.Element => {
-
+const ReactColorPicker = ({ width = 400, height = width, color, onChange, hideControls, pickerClasses = {} }: ColorPickerProps): JSX.Element => {
     const parsedColor = useMemo(() => parseColor(color), [color])
 
     const [selectedColor, setSelectedColor] = useState(new ColorConverter(parsedColor))
@@ -68,15 +94,30 @@ const ReactColorPicker = ({ width = 400, height = width, color, onChange }: Colo
         }
     }
 
+
     return (
-        <div className={classes.colorPicker}>
-            <Saturation width={width} height={height} color={selectedColor} setColor={handleChange} />
-            <div className={classes.colorPickerBody} style={{
-                width: width + 'px',
-            }}>
-                <HueBar width={width} color={selectedColor} setColor={handleChange} />
-                <Fields color={selectedColor} setColor={handleChange} />
-            </div>
+        <div className={selectClass([{ [classes.colorPicker]: !pickerClasses.container, [pickerClasses.container || ""]: true }])}>
+            <Saturation
+                canvasClass={pickerClasses.saturation?.canvas || ""}
+                containerClass={pickerClasses.saturation?.container || ""}
+                saturationCursorClass={pickerClasses.saturation?.saturationCursor || ""}
+
+                width={width} height={height} color={selectedColor} setColor={handleChange} />
+            <HueBar containerClass={pickerClasses.hueBar?.container} cursorClass={pickerClasses.hueBar?.cursorClass} width={width} color={selectedColor} setColor={handleChange} />
+            {hideControls ? null :
+                <div className={
+                    selectClass([
+                        {
+                            [classes.colorPickerBody]: !pickerClasses.controlsContainer,
+                            [pickerClasses.controlsContainer || ""]: true
+                        }
+                    ])
+                } style={{
+                    width: width + 'px',
+                }}>
+                    <Fields containerClass={pickerClasses.fields?.container} inputClass={pickerClasses.fields?.inputs} color={selectedColor} setColor={handleChange} />
+                </div>
+            }
         </div>
     )
 }
