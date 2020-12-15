@@ -41,6 +41,13 @@
     ]
   },
   "homepage": "https://wilfredlopez.github.io/react-color-picker/",
+  "keywords": [
+    "React",
+    "Component",
+    "Color",
+    "Palette",
+    "Picker"
+  ],
   "dependencies": {
     "@wilfredlopez/color-converter": "^1.0.8",
     "react": "^17.0.1",
