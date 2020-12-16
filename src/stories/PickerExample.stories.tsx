@@ -6,7 +6,7 @@ import PickerExample from './PickerExample'
 import * as HeaderStories from './ReactColorPicker.stories'
 
 export default {
-    title: 'Example/PickerExample',
+    title: 'PickerExample',
     component: PickerExample,
 } as Meta
 

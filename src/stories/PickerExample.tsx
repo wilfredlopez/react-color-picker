@@ -14,7 +14,7 @@ function PickerExample() {
                 height={250}
                 color={color} onChange={(color, colorConverter) => {
                     setColor(color)
-                    console.log(colorConverter.toColorObject())
+                    console.log(colorConverter.all())
                     setAllColors(colorConverter.all())
                 }} />
             <div style={{ textAlign: 'center', maxWidth: 400, margin: 'auto' }}>
